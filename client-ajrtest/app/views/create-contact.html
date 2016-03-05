@@ -1,0 +1,47 @@
+<form class="form-horizontal">
+  <div class="form-group required">
+    <label for="name" class="col-sm-2 control-label">Name</label>
+    <div class="col-sm-10">
+      <input required ng-model="contact.name" type="text" class="form-control" id="name" placeholder="Name" ng-maxlength="100">
+      <span class="text-danger" ng-show="form.name.$error">Name must be present.</span>
+    </div>
+  </div>
+  <div class="form-group">
+    <label for="lastname" class="col-sm-2 control-label">Last Name</label>
+    <div class="col-sm-10">
+      <input ng-model="contact.lastname" type="text" class="form-control" id="lastname" placeholder="Last Name" ng-maxlength="100">
+    </div>
+  </div>
+  <div class="form-group">
+    <label for="email" class="col-sm-2 control-label">Email</label>
+    <div class="col-sm-10">
+      <input ng-model="contact.email" type="email" class="form-control" id="email" placeholder="Email" ng-maxlength="100">
+      <span class="text-danger" ng-show="form.email.$error.email">Invalid email format.</span>
+    </div>
+  </div>
+  <div class="form-group">
+    <label for="birthdate" class="col-sm-2 control-label">Birth Date</label>
+    <div class="col-sm-10">
+      <p class="input-group">
+        <input type="text" class="form-control" uib-datepicker-popup is-open="dtpicker.opened" ng-model="contact.birthdate" />
+        <span class="input-group-btn">
+            <button type="button" class="btn btn-default" ng-click="opendtpicker()"><i class="glyphicon glyphicon-calendar"></i></button>
+        </span>
+      </p>
+    </div>
+  </div>
+  <div class="form-group">
+    <label for="address" class="col-sm-2 control-label">Address</label>
+    <div class="col-sm-10">
+      <input ng-model="contact.address" type="text" class="form-control" id="address" placeholder="Address" ng-maxlength="200">
+    </div>
+  </div>
+  <!-- ng-disabled="!form.$valid" -->
+  <div class="form-group">
+    <div class="col-sm-offset-2 col-sm-10">
+      <button id="saveButton" type="submit" class="btn btn-default" ng-click="save()">Submit</button>
+    </div>
+  </div>
+</form>
+
+<!--<div class="alert alert-success" role="alert">...</div>-->
