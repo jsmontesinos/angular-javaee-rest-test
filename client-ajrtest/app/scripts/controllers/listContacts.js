@@ -12,6 +12,7 @@ angular.module('clientAjrtestApp')
     $scope.pageSize = 10;
     $scope.currentpage = 1;
     $scope.itemsPerPage = 10;
+    $scope.loading = [];
 
     function callService() {
       ContactsService.query({
@@ -41,10 +42,18 @@ angular.module('clientAjrtestApp')
       var index = $scope.indexselected;
       ContactsService.update({id: $scope.contacts[index].id}, $scope.contacts[index], function() {
         $log.debug('Data saved');
+        $scope.loading[index] = false;
       }, function (error) {
         $log.debug('Error on save');
       });
     };
+
+    $scope.edit = function(index) {
+      var state = $scope.loading[index];
+      $scope.loading = [];
+      $scope.loading[index] = !state;
+      $scope.indexselected = index;
+    }
 
     $scope.select = function(index){
       $scope.indexselected = index;

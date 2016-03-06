@@ -8,7 +8,7 @@
  * Controller of the clientAjrtestApp. Create or edit a contact
  */
 angular.module('clientAjrtestApp')
-  .controller('CreateContactCtrl', function($scope, ContactsService, $log) {
+  .controller('CreateContactCtrl', function($scope, ContactsService, $log, $location) {
     $scope.contact = new ContactsService();
 
     $scope.dtpicker = {
@@ -22,6 +22,7 @@ angular.module('clientAjrtestApp')
     $scope.save = function() {
       ContactsService.save($scope.contact, function() {
         $log.debug('Data saved');
+        $location.path('contacts'); 
       }, function (error) {
         $log.debug('Error on save');
       });
