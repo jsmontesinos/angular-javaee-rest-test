@@ -80,12 +80,9 @@ module.exports = function (grunt) {
         livereload: 35729
       },
       proxies : [{
-  	    context : '/api' ,
+  	    context : '/angular-java-rest-test/api' ,
   	    host : 'localhost' ,
-  	    port : 8080,
-        rewrite : {
-          '^/api': '/angular-java-rest-test/api'
-        }
+  	    port : 8080
   	  }],
       livereload: {
         options: {

@@ -9,7 +9,7 @@
  */
 angular.module('clientAjrtestApp')
   .factory('ContactsService', function($resource) {
-    return $resource('/api/contacts/:id', null, {
+    return $resource('/angular-java-rest-test/api/contacts/:id', null, {
       update: {
         method: 'PUT'
       }

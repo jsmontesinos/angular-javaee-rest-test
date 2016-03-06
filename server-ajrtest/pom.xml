@@ -43,14 +43,15 @@
 		</dependency>
 	</dependencies>
 	<build>
+		<finalName>angular-java-rest-test</finalName>
 		<plugins>
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-compiler-plugin</artifactId>
 				<version>3.3</version>
 				<configuration>
-					<source>1.8</source>
-					<target>1.8</target>
+					<source>1.7</source>
+					<target>1.7</target>
 				</configuration>
 			</plugin>
 			<plugin>
@@ -59,6 +60,11 @@
 				<version>2.5</version>
 				<configuration>
 					<failOnMissingWebXml>false</failOnMissingWebXml>
+					<webResources>
+			            <resource>
+			                <directory>../client-ajrtest/dist</directory>
+			            </resource>
+			        </webResources>
 				</configuration>
 			</plugin>
 			
