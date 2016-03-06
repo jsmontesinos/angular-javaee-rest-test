@@ -8,7 +8,7 @@
  * Controller of the clientAjrtestApp. List existing contacts paginated
  */
 angular.module('clientAjrtestApp')
-  .controller('ListContactsCtrl', function ($scope, ContactsService) {
+  .controller('ListContactsCtrl', function ($scope, ContactsService, $log) {
     $scope.pageSize = 10;
     $scope.currentpage = 1;
     $scope.itemsPerPage = 10;
@@ -27,5 +27,34 @@ angular.module('clientAjrtestApp')
 
     $scope.pageChanged = function() {
       callService();
+    };
+
+    $scope.dtpicker = {
+      opened: false
+    };
+
+    $scope.opendtpicker = function() {
+      $scope.dtpicker.opened = true;
+    };
+
+    $scope.save = function() {
+      ContactsService.save($scope.contact, function() {
+        $log.debug('Data saved');
+      }, function (error) {
+        $log.debug('Error on save');
+      });
+    };
+
+    $scope.select = function(index){
+      $scope.indexselected = index;
+    }
+
+    $scope.delete = function() {
+      var index = $scope.indexselected;
+      ContactsService.delete({id: $scope.contacts[index].id}, function() {
+        $scope.contacts.splice(index,1);
+      }, function (error) {
+        $log.debug('Error on save');
+      });
     };
   });
