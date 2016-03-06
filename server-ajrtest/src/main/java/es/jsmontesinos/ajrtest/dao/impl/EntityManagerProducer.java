@@ -1,4 +1,4 @@
-package es.jsmontesinos.ajrtest.services;
+package es.jsmontesinos.ajrtest.dao.impl;
 
 import javax.enterprise.inject.Produces;
 import javax.persistence.EntityManager;

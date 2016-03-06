@@ -15,6 +15,7 @@ import javax.ws.rs.QueryParam;
 import javax.ws.rs.core.Response;
 
 import es.jsmontesinos.ajrtest.entities.Contact;
+import es.jsmontesinos.ajrtest.exceptions.ContactNotFoundException;
 import es.jsmontesinos.ajrtest.services.ContactService;
 
 @Path("/api/contacts")
@@ -29,12 +30,13 @@ public class ContactResource {
 	@DELETE
 	@Path("/{id}")
 	public Response deleteContact(final @PathParam("id") Long id){
-		if(service.find(id) == null) {
-	        return Response.status(Response.Status.NOT_FOUND)
+		try {
+			service.remove(id);
+			return Response.ok().build();
+	    } catch (ContactNotFoundException cnfe){
+	    	return Response.status(Response.Status.NOT_FOUND)
 	        		.entity("Entity not found for id: " + id).build();
 	    }
-		service.remove(id);
-		return Response.ok().build();
 	}
 	
 	@PUT
@@ -51,18 +53,18 @@ public class ContactResource {
 	@GET
 	public Response getContacts(final @QueryParam("offset") Integer offset,
 			final @QueryParam("limit") Integer limit) {
-		return Response.ok(service.findAll(offset, limit))
+		return Response.ok(service.getAll(offset, limit))
 				.header("X-Total-Count", service.count()).build();
 	}
 
 	@GET
 	@Path("/{id}")
 	public Response getContact(final @PathParam("id") Long id) {
-		if(service.find(id) == null) {
+		if(service.getById(id) == null) {
 	        return Response.status(Response.Status.NOT_FOUND)
 	        		.entity("Entity not found for id: " + id).build();
 	    }
-		return Response.ok(service.find(id)).build();
+		return Response.ok(service.getById(id)).build();
 	}
 
 }
