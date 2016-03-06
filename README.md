@@ -10,6 +10,7 @@ The application is developed using various tecnologies:
 
 - Angular js: the logic of the front-end application.
 - Bootstrap: a set of css an javascript libraries that helps the app looks beauty.
+- UI Bootstrap: set of preconfigured widgets to use in frontend. This provide the datepicker and pagination component.
 - Java EE: JAX-RS and JPA application in the backend to serve the REST API.
 - Postgresql: A database to stock the data
 
@@ -17,4 +18,6 @@ The application is developed using various tecnologies:
 
 To compile the application we need to run 'grunt build' in the client-ajrtest folder. This result in a new 'dist' folder inside. Then we must run 'mvn package' on the server-ajrtest folder to produce the war. By last, we need to have a postgres database (script to create it is supplied in sql folder) and a Java EE application server to host the war. I have tested it in Apache Tomee server.
 
+## Using the app
 
+The application is trivial to use. In the main page you can see a list of contacts, each one can be edited or deleted with buttons on the right. There is a button to create new contact too. Delete contact shows a confirm dialog previusly. Edit contact opens an inline form just below the contact row. On the contact edit / create form, the save button is disabled until form is valid.
