@@ -35,13 +35,14 @@
     </tbody>
   </table>
 
-  <uib-pagination ng-change="callService()" total-items="totalItems" ng-model="currentpage" items-per-page="pageSize" class="pagination-sm" boundary-link-numbers="true" rotate="false"></uib-pagination>
+  <uib-pagination ng-change="pageChanged()" total-items="totalItems" ng-model="currentpage" items-per-page="pageSize" class="pagination-sm" boundary-link-numbers="true" rotate="false"></uib-pagination>
 </div>
 
 <a title="New" href="#/create-contact" class="btn btn-success"><span class="glyphicon glyphicon-user" aria-hidden="true"></span> New contact</a>
 
 <div id="deleteModal" class="modal fade" tabindex="-1" role="dialog">
   <div class="modal-dialog">
+
     <div class="modal-content">
       <div class="modal-header">
         <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
