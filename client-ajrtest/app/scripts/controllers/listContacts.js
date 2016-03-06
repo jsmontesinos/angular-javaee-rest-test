@@ -9,7 +9,7 @@
  */
 angular.module('clientAjrtestApp')
   .controller('ListContactsCtrl', function ($scope, ContactsService, $log) {
-    $scope.pageSize = 10;
+    $scope.pageSize = 5;
     $scope.currentpage = 1;
     $scope.itemsPerPage = 10;
     $scope.loading = [];

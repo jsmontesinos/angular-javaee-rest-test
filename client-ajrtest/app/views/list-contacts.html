@@ -34,25 +34,8 @@
       </tr>
     </tbody>
   </table>
-  <!--<nav>
-    <ul class="pagination">
-      <li>
-        <a href="#" aria-label="Previous">
-          <span aria-hidden="true">&laquo;</span>
-        </a>
-      </li>
-      <li><a href="#">1</a></li>
-      <li><a href="#">2</a></li>
-      <li><a href="#">3</a></li>
-      <li><a href="#">4</a></li>
-      <li><a href="#">5</a></li>
-      <li>
-        <a href="#" aria-label="Next">
-          <span aria-hidden="true">&raquo;</span>
-        </a>
-      </li>
-    </ul>
-  </nav>-->
+
+  <uib-pagination ng-change="callService()" total-items="totalItems" ng-model="currentpage" items-per-page="pageSize" class="pagination-sm" boundary-link-numbers="true" rotate="false"></uib-pagination>
 </div>
 
 <a title="New" href="#/create-contact" class="btn btn-success"><span class="glyphicon glyphicon-user" aria-hidden="true"></span> New contact</a>
