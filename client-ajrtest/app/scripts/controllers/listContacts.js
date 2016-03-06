@@ -38,7 +38,8 @@ angular.module('clientAjrtestApp')
     };
 
     $scope.save = function() {
-      ContactsService.save($scope.contact, function() {
+      var index = $scope.indexselected;
+      ContactsService.update({id: $scope.contacts[index].id}, $scope.contacts[index], function() {
         $log.debug('Data saved');
       }, function (error) {
         $log.debug('Error on save');

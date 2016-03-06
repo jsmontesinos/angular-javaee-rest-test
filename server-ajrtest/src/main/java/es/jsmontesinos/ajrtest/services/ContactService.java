@@ -41,5 +41,10 @@ public class ContactService {
 		em.remove(find(id));
 	}
 
+	public Contact upadte(Contact contact) {
+		em.merge(contact);
+		return contact;
+	}
+
 
 }
