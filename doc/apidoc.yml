@@ -1,0 +1,137 @@
+# Api definition YAML file
+
+swagger: '2.0'
+info:
+  title: angular-javaee-rest-test API
+  description: Api for contact management on angular-javaee-rest-test application
+  version: "0.0.1"
+host: localhost:8080
+schemes:
+  - https
+basePath: /angular-java-rest-test/api
+produces:
+  - application/json
+paths:
+  /contacts:
+    get:
+      description: |
+        The Contacts endpoint returns information about the contacts. 
+        The response includes the name and other details about each contact.
+      parameters:
+        - name: offset
+          in: query
+          description: Initial contact number for pagination.
+          required: true
+          type: number
+          format: integer
+        - name: limit
+          in: query
+          description: Numbers of records to retrieve.
+          required: true
+          type: number
+          format: integer
+      tags:
+        - Contacts
+      responses:
+        200:
+          description: An array of contacts
+          schema:
+            type: array
+            items:
+              $ref: '#/definitions/Contact'
+          headers:
+            X-Total-Count:
+              description: Total number of contacts
+              type: integer
+        default:
+          description: Unexpected error
+    post:
+      description : |
+        Create a new contact
+      tags:
+        - Contacts
+      responses:
+        201:
+          description: Contact created with asigned id
+          schema:
+            $ref: '#/definitions/Contact'
+        default:
+          description: Unexpected error
+  /contacts/{id}:
+    get:
+      description: |
+        Gets a conctact by id
+      parameters:
+        - name: id
+          in: path
+          description: Id of the contact to get
+          required: true
+          type: number
+          format: integer
+      responses:
+        200:
+          description: Contact
+          schema:
+            $ref: '#/definitions/Contact'
+        404:
+          description: The contact can't be found
+        default:
+          description: Unexpected error
+    put:
+      description: |
+        Update a contact
+      parameters:
+        - name: id
+          in: path
+          description: Id of the contact to update
+          required: true
+          type: number
+          format: integer  
+      responses:
+        200:
+          description: Contact created with asigned id
+          schema:
+            $ref: '#/definitions/Contact'
+        default:
+          description: Unexpected error
+    delete:
+      description: |
+        Delete a contact by id
+      parameters:
+        - name: id
+          in: path
+          description: Id of the contact to remove
+          required: true
+          type: number
+          format: integer
+      responses:
+        200:
+          description: Null response
+        404:
+          description: The contact can't be found
+        default:
+          description: Unexpected error
+definitions:
+  Contact:
+    type: object
+    properties:
+      id:
+        type: integer
+        description: Unique number of contact.
+      name:
+        type: string
+        description: Name of the contact.
+      lastname:
+        type: string
+        description: Lastname of the contact.
+      email:
+        type: string
+        description: Email of the contact.
+      address:
+        type: string
+        description: Address of the contact.
+      birthdate:
+        type: string
+        format: date
+        description: Date of birth.
+  

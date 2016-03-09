@@ -9,6 +9,7 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.runners.MockitoJUnitRunner;
 
+import es.jsmontesinos.ajrtest.controllers.ContactController;
 import es.jsmontesinos.ajrtest.dao.ContactDao;
 import es.jsmontesinos.ajrtest.entities.Contact;
 import es.jsmontesinos.ajrtest.exceptions.ContactNotFoundException;
@@ -20,7 +21,7 @@ public class ContactServiceTest {
 	private ContactDao cdao;
 	
 	@InjectMocks
-    private ContactService service;
+    private ContactController service;
 
 	@Test(expected = ContactNotFoundException.class)  
 	public void should_throw_exception_if_remove_not_existing_contact() {

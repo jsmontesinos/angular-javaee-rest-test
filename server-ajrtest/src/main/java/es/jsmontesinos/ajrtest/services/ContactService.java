@@ -1,47 +1,70 @@
 package es.jsmontesinos.ajrtest.services;
 
-
-import java.util.List;
-
 import javax.ejb.Stateless;
 import javax.inject.Inject;
+import javax.validation.Valid;
+import javax.ws.rs.Consumes;
+import javax.ws.rs.DELETE;
+import javax.ws.rs.GET;
+import javax.ws.rs.POST;
+import javax.ws.rs.PUT;
+import javax.ws.rs.Path;
+import javax.ws.rs.PathParam;
+import javax.ws.rs.Produces;
+import javax.ws.rs.QueryParam;
+import javax.ws.rs.core.Response;
 
-import es.jsmontesinos.ajrtest.dao.ContactDao;
+import es.jsmontesinos.ajrtest.controllers.ContactController;
 import es.jsmontesinos.ajrtest.entities.Contact;
 import es.jsmontesinos.ajrtest.exceptions.ContactNotFoundException;
 
+@Path("/api/contacts")
 @Stateless
+@Consumes("application/json")
+@Produces("application/json; charset=UTF-8")
 public class ContactService {
-	
+
 	@Inject
-	private ContactDao cdao;
-
-    public Contact getById(Long id){
-    	return cdao.find(id);
-    }
-    
-    public List<Contact> getAll(int first, int max) {
-        return cdao.findAll(first, max);
-    }
-    
-    public Contact save(Contact contact) {
-		return cdao.save(contact);
-	}
-
-	public Long count() {
-		return cdao.count();
-	}
-
-	public void remove(Long id) {
-		if(cdao.find(id) == null) {
-	        throw new ContactNotFoundException();
+	private ContactController service;
+	
+	@DELETE
+	@Path("/{id}")
+	public Response deleteContact(final @PathParam("id") Long id){
+		try {
+			service.remove(id);
+			return Response.ok().build();
+	    } catch (ContactNotFoundException cnfe){
+	    	return Response.status(Response.Status.NOT_FOUND)
+	        		.entity("Entity not found for id: " + id).build();
 	    }
-		cdao.remove(id);
+	}
+	
+	@PUT
+	@Path("/{id}")
+	public Response updateContact(@Valid Contact contact){
+		return Response.status(Response.Status.OK).entity(service.upadte(contact)).build();
+	}
+	
+	@POST
+	public Response saveContact(@Valid Contact contact){
+		return Response.status(Response.Status.CREATED).entity(service.save(contact)).build();
+	}
+	
+	@GET
+	public Response getContacts(final @QueryParam("offset") Integer offset,
+			final @QueryParam("limit") Integer limit) {
+		return Response.ok(service.getAll(offset, limit))
+				.header("X-Total-Count", service.count()).build();
 	}
 
-	public Contact upadte(Contact contact) {
-		return cdao.upadte(contact);
+	@GET
+	@Path("/{id}")
+	public Response getContact(final @PathParam("id") Long id) {
+		if(service.getById(id) == null) {
+	        return Response.status(Response.Status.NOT_FOUND)
+	        		.entity("Entity not found for id: " + id).build();
+	    }
+		return Response.ok(service.getById(id)).build();
 	}
-
 
 }

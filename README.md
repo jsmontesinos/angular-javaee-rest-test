@@ -8,11 +8,21 @@ The application contains a CRUD view to create, list, edit and delete contacts. 
 
 The application is developed using various tecnologies:
 
-- Angular js: the logic of the front-end application.
-- Bootstrap: a set of css an javascript libraries that helps the app looks beauty.
-- UI Bootstrap: set of preconfigured widgets to use in frontend. This provide the datepicker and pagination component.
+- Angular js: the logic and the UI of the front-end application.
+- Bootstrap: a set of css an javascript libraries that helps the app looks good.
+- UI Bootstrap: set of preconfigured widgets to use in frontend. This provide the datepicker and pagination components.
 - Java EE: JAX-RS and JPA application in the backend to serve the REST API.
-- Postgresql: A database to stock the data
+- Postgresql: A database to store the data
+
+### Layer architecture
+
+This test application is an example of modern web layered architecture. Application is divided on frontend and backend communicated across RESTFULL API. As we said before, the frontend is developed on Angular JS framework, while backend is developed using Java EE tecnologies. Next picture shows the layers and parts of both application sides.
+
+![alt text](doc/app-layers-diagram.png)
+
+### Backend API
+
+Backend service has a simple API to manage Contacts (create, update, remove and list). The API specification is included as a YAML file that follows the Swagger Specification. You can find it in doc/ folder of the project. A Swagger generated documentation in static html file is included in doc/ folder too.
 
 ## Compile and run the app
 
