@@ -11,6 +11,8 @@ angular.module('clientAjrtestApp')
   .controller('CreateContactCtrl', function($scope, ContactsService, $log, $location) {
     $scope.contact = new ContactsService();
 
+    $scope.invalidemailmessage = $scope.null;
+
     $scope.dtpicker = {
       opened: false
     };
@@ -22,9 +24,9 @@ angular.module('clientAjrtestApp')
     $scope.save = function() {
       ContactsService.save($scope.contact, function() {
         $log.debug('Data saved');
-        $location.path('contacts'); 
+        $location.path('contacts');
       }, function (error) {
-        $log.debug('Error on save');
+        $scope.invalidemailmessage = 'The email is already registered';
       });
     };
   });

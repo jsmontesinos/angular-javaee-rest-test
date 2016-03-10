@@ -8,6 +8,7 @@ import javax.inject.Inject;
 
 import es.jsmontesinos.ajrtest.dao.ContactDao;
 import es.jsmontesinos.ajrtest.entities.Contact;
+import es.jsmontesinos.ajrtest.exceptions.ContactDupplicatedException;
 import es.jsmontesinos.ajrtest.exceptions.ContactNotFoundException;
 
 @Stateless
@@ -25,6 +26,9 @@ public class ContactController {
     }
     
     public Contact save(Contact contact) {
+    	if(cdao.findByEmail(contact.getEmail()) != null) {
+	        throw new ContactDupplicatedException();
+	    }
 		return cdao.save(contact);
 	}
 

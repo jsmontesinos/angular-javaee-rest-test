@@ -6,6 +6,7 @@ import javax.ejb.Stateless;
 import javax.enterprise.inject.Default;
 import javax.inject.Inject;
 import javax.persistence.EntityManager;
+import javax.persistence.NoResultException;
 import javax.persistence.Query;
 
 import es.jsmontesinos.ajrtest.dao.ContactDao;
@@ -30,6 +31,19 @@ public class JpaContactDao implements ContactDao{
         query.setFirstResult(first);
         query.setMaxResults(max);
         return (List<Contact>) query.getResultList();
+    }
+    
+    @Override
+    public Contact findByEmail(String email){
+    	Contact contact = null;
+    	final Query query = em.createQuery("SELECT c FROM Contact c WHERE c.email = :email");
+        query.setParameter("email", email);
+        try{
+        	contact = (Contact) query.getSingleResult();
+        } catch (NoResultException nre){
+        	// sillently return null
+        }
+        return contact;
     }
     
     @Override

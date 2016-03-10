@@ -44,6 +44,13 @@
       <button ng-disabled="!form.$valid" title="Save contact" id="saveButton" type="submit" class="btn btn-success" ng-click="save()"><span class="glyphicon glyphicon-floppy-disk" aria-hidden="true"></span> Save</button>
     </div>
   </div>
+
+
 </form>
+
+
+<div class="alert alert-danger" ng-show="invalidemailmessage != null">
+  <strong>Contact not created</strong> {{invalidemailmessage}}.
+</div>
 
 <!--<div class="alert alert-success" role="alert">...</div>-->

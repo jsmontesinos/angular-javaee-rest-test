@@ -18,4 +18,6 @@ public interface ContactDao {
 
 	Contact upadte(Contact contact);
 
+	Contact findByEmail(String email);
+
 }

@@ -16,6 +16,7 @@ import javax.ws.rs.core.Response;
 
 import es.jsmontesinos.ajrtest.controllers.ContactController;
 import es.jsmontesinos.ajrtest.entities.Contact;
+import es.jsmontesinos.ajrtest.exceptions.ContactDupplicatedException;
 import es.jsmontesinos.ajrtest.exceptions.ContactNotFoundException;
 
 @Path("/api/contacts")
@@ -47,7 +48,12 @@ public class ContactService {
 	
 	@POST
 	public Response saveContact(@Valid Contact contact){
-		return Response.status(Response.Status.CREATED).entity(service.save(contact)).build();
+		try {
+			return Response.status(Response.Status.CREATED).entity(service.save(contact)).build();
+		} catch (ContactDupplicatedException cde){
+	    	return Response.status(Response.Status.CONFLICT)
+	        		.entity("Dupplicated email: " + contact.getEmail()).build();
+	    }
 	}
 	
 	@GET

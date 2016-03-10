@@ -1,7 +1,8 @@
 package es.jsmontesinos.ajrtest.services;
 
 import static org.mockito.Matchers.*;
-import static org.mockito.Mockito.*;
+import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.when;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -12,6 +13,7 @@ import org.mockito.runners.MockitoJUnitRunner;
 import es.jsmontesinos.ajrtest.controllers.ContactController;
 import es.jsmontesinos.ajrtest.dao.ContactDao;
 import es.jsmontesinos.ajrtest.entities.Contact;
+import es.jsmontesinos.ajrtest.exceptions.ContactDupplicatedException;
 import es.jsmontesinos.ajrtest.exceptions.ContactNotFoundException;
 
 @RunWith(MockitoJUnitRunner.class)
@@ -28,6 +30,14 @@ public class ContactServiceTest {
 		when(cdao.find(anyLong())).thenReturn(null);
 		
 		service.remove(Long.valueOf(1));
+	}
+	
+	@Test(expected = ContactDupplicatedException.class)  
+	public void should_throw_exception_if_dupplicated_email_contact() {
+		Contact contact = new Contact();
+		when(cdao.findByEmail(anyString())).thenReturn(contact);
+		
+		service.save(contact);
 	}
 	
 	@Test
